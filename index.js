@@ -1,3 +1,4 @@
+require('dotenv').config()
 const Discord = require('discord.js')
 const client = new Discord.Client()
 var moment = require('moment')
@@ -10,7 +11,7 @@ var dataHoraInicio = null
 var ordem = [ 45, 4, 45, 4, 45, 4, 45, 10 ]
 
 client.on("ready", () => {
-    channel = client.channels.cache.get('XXXXXXX')
+    channel = client.channels.cache.get(process.env.CHANNEL_ID)
 })
 
 function startPomodoro () {
@@ -38,7 +39,7 @@ function stopPomodoro () {
 
 function statusPomodoro () {
     if (timerContador) {
-        enviaMensagem('Tempo restante é ' + tempoRestante() + ' minuto(s)')
+        enviaMensagem('Tempo restante é ' + tempoRestante() + ' minutos')
     } else {
         enviaMensagem('O Pomodoro não foi iniciado!')
     }
@@ -71,7 +72,6 @@ function contador () {
             pomoAtual = 0
         }
     }
-    console.log('Segundos: ' + segundos)
 }
 
 client.on('message', msg => {
@@ -86,4 +86,4 @@ client.on('message', msg => {
     }
 })
 
-client.login('XXXXXXXXXXXXXXXXX')
+client.login(process.env.TOKEN_BOOT)
